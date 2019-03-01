@@ -8,11 +8,13 @@ using MyShop.Core.Models;
 
 namespace MyShop.DataAccess.InMemory
 {
+    
     public class ProductRepository
     {
         ObjectCache cache = MemoryCache.Default;
         List<Product> products;
 
+        //Stores lists of products
         public ProductRepository()
         {
             products = cache["products"] as List<Product>;
@@ -20,15 +22,17 @@ namespace MyShop.DataAccess.InMemory
                 products = new List<Product>();
             }
         } 
-        
+        //Saves products in computer memory
         public void Commit(){
             cache["products"] = products;
         }
 
+        //Allows the insert and save of products
         public void Insert (Product p){
             products.Add(p);
         }
 
+        //Allows updating of products.If none exist, throws exception
         public void Update(Product product){
             Product productToUpdate = products.Find(p => p.Id == product.Id);
 
@@ -42,7 +46,9 @@ namespace MyShop.DataAccess.InMemory
             }
 
          }
-         public Product Find(string Id){
+
+        //Allows updating of products.If none exist, throws exception
+        public Product Find(string Id){
             Product product = products.Find(p => p.Id == Id);
 
             if (product != null)
@@ -55,10 +61,12 @@ namespace MyShop.DataAccess.InMemory
             }
         }
 
+        //Allows product list to be searchable
         public IQueryable<Product> Collection(){
             return products.AsQueryable();
         }
 
+        //Allows deleting of products. If none exist, throws exception
         public void Delete (String Id){
             Product productToDelete = products.Find(p => p.Id == Id);
 
