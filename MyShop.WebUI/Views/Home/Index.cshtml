@@ -7,15 +7,14 @@
 
 <div class="col-md-2">
     <h4>Filter by Category</h4>
-    <div class=" list-group">
-        @*adds style to the categoryies along the left hand side.*@
+    <div class="list-group">
         @Html.ActionLink("All", "Index", null, new { @class = Request["Category"] == null ? "list-group-item active" : "list-group-item" })
-        @foreach(var cat in Model.ProductCategories){
-         @Html.ActionLink(cat.Category, "Index", new{ Category = cat.Category},new { @class = Request["Category"] == cat.Category ? "list-group-item active" : "list-group-item" })
+        @foreach (var cat in Model.ProductCategories)
+        {
+            @Html.ActionLink(cat.Category, "Index", new { Category = cat.Category }, new { @class = Request["Category"] == cat.Category ? "list-group-item active" : "list-group-item" })
         }
     </div>
 </div>
-
 <div class="col-md-10">
 
     @foreach (var item in Model.Products)
@@ -35,7 +34,7 @@
                 <h4>@item.Price</h4>
             </div>
             <div class="col-md-12">
-                <a href="#" class="btn btn-default">Add to Basket</a>
+                <a href="@Url.Action("AddToBasket", "Basket", new { Id=item.Id })" class="btn btn-default">Add to Basket</a>
             </div>
         </div>
     }
