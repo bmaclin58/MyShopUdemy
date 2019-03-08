@@ -11,6 +11,7 @@ using System.IO;
 
 namespace MyShop.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]//only "Admin's" can get it
     public class ProductManagerController : Controller
     {
         IRepository<Product> context;

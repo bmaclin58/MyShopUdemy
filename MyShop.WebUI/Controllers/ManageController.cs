@@ -18,6 +18,10 @@ namespace MyShop.WebUI.Controllers
 
         public ManageController()
         {
+            //_userManager.AddClaim();
+            //_userManager.AddToRole("", "Admin");
+
+            //Various methods to add someone to admin roles without SQL database
         }
 
         public ApplicationSignInManager SignInManager

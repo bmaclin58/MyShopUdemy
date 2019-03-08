@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MyShop.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]//only "Admin's" can get it
     public class OrderManagerController : Controller
     {
         IOrderService orderService;

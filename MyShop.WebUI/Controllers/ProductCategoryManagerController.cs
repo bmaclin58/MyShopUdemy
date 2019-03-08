@@ -9,8 +9,10 @@ using System.Web.Mvc;
 
 namespace MyShop.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]//only "Admin's" can get it
     public class ProductCategoryManagerController : Controller
     {
+        
         IRepository<ProductCategory> context;
 
         public ProductCategoryManagerController(IRepository<ProductCategory> context)
