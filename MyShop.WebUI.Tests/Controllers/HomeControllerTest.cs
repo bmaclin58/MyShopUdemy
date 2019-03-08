@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyShop.WebUI;
 using MyShop.WebUI.Controllers;
+using MyShop.Core.Contracts;
+using MyShop.Core.Models;
+using System.Web.Mvc;
+using MyShop.Core.ViewModels;
+using System.Linq;
 
 namespace MyShop.WebUI.Tests.Controllers
 {
@@ -23,6 +23,22 @@ namespace MyShop.WebUI.Tests.Controllers
 
             //// Assert
             //Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void IndexPageDoesReturnProducts()
+        {
+            IRepository<Product> productContext = new Mocks.MockContext<Product>();
+            IRepository<ProductCategory> productCatgeoryContext = new Mocks.MockContext<ProductCategory>();
+
+            productContext.Insert(new Product());
+
+            HomeController controller = new HomeController(productContext, productCatgeoryContext);
+
+            var result = controller.Index() as ViewResult;
+            var viewModel = (ProductListViewModel)result.ViewData.Model;
+
+            Assert.AreEqual(1, viewModel.Products.Count());
+
         }
     }
 }
