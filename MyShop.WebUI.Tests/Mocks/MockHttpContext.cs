@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,17 +11,34 @@ namespace MyShop.WebUI.Tests.Mocks
     public class MockHttpContext : HttpContextBase
     {
         private MockRequest request;
-        private MockRepsonse response;
+        private MockResponse response;
         private HttpCookieCollection cookies;
+        private IPrincipal FakeUser;
 
-        public MockHttpContext(){
+        public MockHttpContext()
+        {
             cookies = new HttpCookieCollection();
             this.request = new MockRequest(cookies);
-            this.response = new MockRepsonse(cookies);
+            this.response = new MockResponse(cookies);
         }
 
-        public override HttpRequestBase Request{
-            get{
+        public override IPrincipal User
+        {
+            get
+            {
+                return this.FakeUser;
+            }
+            set
+            {
+                this.FakeUser = value;
+            }
+
+        }
+
+        public override HttpRequestBase Request
+        {
+            get
+            {
                 return request;
             }
         }
@@ -34,11 +52,11 @@ namespace MyShop.WebUI.Tests.Mocks
         }
     }
 
-    public class MockRepsonse : HttpResponseBase
+    public class MockResponse : HttpResponseBase
     {
         private readonly HttpCookieCollection cookies;
 
-        public MockRepsonse(HttpCookieCollection cookies)
+        public MockResponse(HttpCookieCollection cookies)
         {
             this.cookies = cookies;
         }
@@ -51,6 +69,7 @@ namespace MyShop.WebUI.Tests.Mocks
             }
         }
     }
+
     public class MockRequest : HttpRequestBase
     {
         private readonly HttpCookieCollection cookies;
@@ -68,4 +87,5 @@ namespace MyShop.WebUI.Tests.Mocks
             }
         }
     }
+
 }
