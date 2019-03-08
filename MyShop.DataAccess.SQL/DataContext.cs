@@ -20,6 +20,8 @@ namespace MyShop.DataAccess.SQL
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItem { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
     }
 }
 //https://stackoverflow.com/questions/11231934/create-database-permission-denied-in-database-master-ef-code-first
